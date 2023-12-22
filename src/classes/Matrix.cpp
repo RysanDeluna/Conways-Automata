@@ -3,7 +3,6 @@
 //
 
 #include "Matrix.h"
-#include "cell.h"
 
 /* ALLOC FUNCTION */
 
@@ -97,23 +96,22 @@ std::ostream& operator<<(std::ostream& os, const Matrix<bool>& m)
   return os;
 }
 
-std::istream& operator>>(std::istream& is, Matrix<int>& m)
+std::ostream& operator<<(std::ostream& os, const Matrix<Cell>& m)
 {
-  for (int i = 0; i < m.getRows(); ++i)
-    for(int j = 0; j < m.getCols(); ++j)
-      is >> m.getPoin()[i][j];
-  return is;
-}
-
-std::istream& operator>>(std::istream& is, Matrix<bool>& m)
-{
-  for (int i = 0; i < m.getRows(); ++i)
-    for(int j = 0; j < m.getCols(); ++j)
-      is >> m.getPoin()[i][j];
-  return is;
+  for (int i = 0; i < m.getRows(); i++)
+  {
+    // First column
+    m.getPoin()[i][0].isAlive() ? os << "\u2588" : os << "\u253c";
+    for (int j = 1; j < m.getCols(); j++) // Second and so on...
+    {
+      os << " ";
+      m.getPoin()[i][j].isAlive() ? os << "\u2588" : os << "\u253c";
+    }
+    os << std::endl;
+  }
+  return os;
 }
 
 template class Matrix<int>;
 template class Matrix<bool>;
 template class Matrix<Cell>;
-

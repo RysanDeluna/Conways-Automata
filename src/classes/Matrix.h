@@ -4,6 +4,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include "cell.h"
 
 template <class T>
 class Matrix {
@@ -31,3 +32,4 @@ public:
 
 std::ostream& operator<<(std::ostream&, const Matrix<int>&);
 std::ostream& operator<<(std::ostream&, const Matrix<bool>&);
+std::ostream& operator<<(std::ostream&, const Matrix<Cell>&);

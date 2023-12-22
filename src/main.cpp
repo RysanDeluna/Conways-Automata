@@ -9,10 +9,8 @@ void clear() { std::cout << "\x1B[2J\x1B[H"; }
 
 int main()
 {
-  Matrix<int> a (24,32,0);
+  Matrix<Cell> a (24,32,Cell());
 
-  std::cout<<a;
-  clear();
-  std::cout<<a;
+  std::cout << a;
   return 0;
 }

@@ -25,9 +25,11 @@ public:
     inline T& operator()(int x, int y) { return p[x][y]; }  // Getting an element based on the position
 
     // Getters
-    int getRows() const {return _rows;}
-    int getCols() const {return _cols;}
+    [[nodiscard]] int getRows() const {return _rows;}
+    [[nodiscard]] int getCols() const {return _cols;}
     T** getPoin() const {return p;}
+
+    void update();
 };
 
 std::ostream& operator<<(std::ostream&, const Matrix<int>&);

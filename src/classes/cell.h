@@ -9,13 +9,16 @@ class Cell {
 private:
     enum state { ALIVE,
                  DEAD };
+
+    short _neighbours;
     state _state;
+    void born();
+    void die();
 public:
     Cell();
     bool isAlive();
-    void born();
-    void die();
-    void update(short);
+    void update();
+    void inform_neighbours(short);
 };
 
 

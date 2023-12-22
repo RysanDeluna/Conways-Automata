@@ -11,12 +11,14 @@ bool Cell::isAlive() { return _state==ALIVE; }
 void Cell::born() { _state = ALIVE; }
 void Cell::die()  { _state = DEAD;  }
 
-void Cell::update(short neighbours_alive)
+void Cell::update()
 {
   switch (_state)
   {
-    case ALIVE: if (neighbours_alive < 2 || neighbours_alive > 3) die(); break;
-    case DEAD : if (neighbours_alive == 3) born(); break;
+    case ALIVE: if (_neighbours < 2 || _neighbours > 3) die(); break;
+    case DEAD : if (_neighbours == 3) born(); break;
     default   : break;
   }
 }
+
+void Cell::inform_neighbours(short neighbours) { _neighbours = neighbours; }

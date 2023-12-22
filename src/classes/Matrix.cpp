@@ -73,6 +73,20 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
   return *this;
 }
 
+template<class T>
+void Matrix<T>::update() { // TODO
+  // Check the type of elements
+
+  // For Cells:
+    // check its neighbours
+
+    // Alters the neighbours quantities in all the cells objects
+
+    // Update each Cell
+
+  // Repeat for every element
+}
+
 // For printing and showing the matrix
 std::ostream& operator<<(std::ostream& os, const Matrix<int>& m)
 {

@@ -30,6 +30,9 @@ public:
     T** getPoin() const {return p;}
 
     void update();
+
+    std::vector<T> check_surroundings(int,int,int);
+    void generate_life(int);
 };
 
 std::ostream& operator<<(std::ostream&, const Matrix<int>&);

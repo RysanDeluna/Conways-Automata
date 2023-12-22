@@ -3,6 +3,8 @@
 //
 
 #include "Matrix.h"
+#include <vector>
+#include <random>
 
 /* ALLOC FUNCTION */
 
@@ -73,20 +75,53 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
   return *this;
 }
 
-template<class T>
-void Matrix<T>::update() { // TODO
-  // Check the type of elements
+// receives the indexes and returns a vector with all the neighbours
+template <class T> std::vector<T> Matrix<T>::check_surroundings(int i, int j, int distance)
+{
+  std::vector<T> neighbours;
+  // Case it has less than 8 neighbours (borders)
 
-  // For Cells:
-    // check its neighbours
-
-    // Alters the neighbours quantities in all the cells objects
-
-    // Update each Cell
-
-  // Repeat for every element
-
+  for(int l = i-1; l < distance + i; l++)
+  {
+    for(int y = j-1; y < distance + j; y++)
+    {
+      if(!(l == i && y == j) &&       // Not add the central
+          (l >= 0 && l < _rows) &&    // Check if l is within bounds
+          (y >= 0 && y < _cols))      // Check if y is within bounds
+        neighbours.push_back(p[l][y]);
+    }
+  }
+  return neighbours;
 }
+
+template<> void Matrix<Cell>::update() {
+  short count = 0;
+  for (int i = 0; i < getRows(); i++)
+  {
+    for (int j = 0; j < getCols(); j++)
+    {
+      for (auto c : check_surroundings(i,j,1)) if (c.isAlive()) count++;
+      p[i][j].inform_neighbours(count);
+    }
+  }
+
+  for (int i = 0; i < getRows(); i++)
+    for (int j = 0; j < getCols(); j++)
+      p[i][j].update();
+}
+
+
+
+template<> void Matrix<Cell>::generate_life(int prob) {
+  srand(time(NULL));
+  for(int i = 0; i < getRows(); i++)
+    for(int j = 0; j < getCols(); j++)
+    {
+      int num = rand() % 100;
+      if(num < prob) p[i][j].force_born();
+    }
+}
+
 
 // For printing and showing the matrix
 std::ostream& operator<<(std::ostream& os, const Matrix<int>& m)

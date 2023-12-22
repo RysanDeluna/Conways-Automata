@@ -19,6 +19,7 @@ public:
     bool isAlive();
     void update();
     void inform_neighbours(short);
+    void force_born() { _state = ALIVE; }
 };
 
 

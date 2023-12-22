@@ -2,23 +2,21 @@
 // Created by rysan on 21/12/23.
 //
 #include <iostream>
-#include <cstdlib>
 #include "classes/Matrix.h"
-#include <SFML/Graphics.hpp>
+#include <random>
 
 void clear() { std::cout << "\x1B[2J\x1B[H"; }
 
 int main()
 {
-  Matrix<Cell> a (24,32,Cell());
+  Matrix<Cell> a (10,10,Cell());
+  std::string coisa;
 
-  while(true)
-  {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && timer < 0)
-    {
-      Matrix.update();
-    }
-  }
+  a.generate_life(30);
+  std::cout << a;
+  std::cin >> coisa;
+
+  a.update();
 
   std::cout << a;
   return 0;

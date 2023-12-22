@@ -3,6 +3,7 @@
 //
 
 #include "Matrix.h"
+#include "cell.h"
 
 /* ALLOC FUNCTION */
 
@@ -114,4 +115,5 @@ std::istream& operator>>(std::istream& is, Matrix<bool>& m)
 
 template class Matrix<int>;
 template class Matrix<bool>;
+template class Matrix<Cell>;
 

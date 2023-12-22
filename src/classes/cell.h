@@ -10,12 +10,12 @@ private:
     enum state { ALIVE,
                  DEAD };
     state _state;
-    short _neighbours;
 public:
+    Cell();
     bool isAlive();
     void born();
     void die();
-    void update();
+    void update(short);
 };
 
 

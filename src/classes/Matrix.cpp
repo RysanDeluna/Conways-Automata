@@ -79,16 +79,18 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
 template <class T> std::vector<T> Matrix<T>::check_surroundings(int i, int j, int distance)
 {
   std::vector<T> neighbours;
+  int count = 0;
   // Case it has less than 8 neighbours (borders)
 
-  for(int l = i-1; l < distance + i; l++)
+  for(int l = i-1; l <= distance + i; l++)
   {
-    for(int y = j-1; y < distance + j; y++)
+    for(int y = j-1; y <= distance + j; y++)
     {
       if(!(l == i && y == j) &&       // Not add the central
           (l >= 0 && l < _rows) &&    // Check if l is within bounds
           (y >= 0 && y < _cols))      // Check if y is within bounds
         neighbours.push_back(p[l][y]);
+      count++;
     }
   }
   return neighbours;
@@ -100,6 +102,7 @@ template<> void Matrix<Cell>::update() {
   {
     for (int j = 0; j < getCols(); j++)
     {
+      count = 0;
       for (auto c : check_surroundings(i,j,1)) if (c.isAlive()) count++;
       p[i][j].inform_neighbours(count);
     }

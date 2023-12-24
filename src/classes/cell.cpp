@@ -4,7 +4,7 @@
 
 #include "cell.h"
 
-Cell::Cell() : _state(DEAD) {}
+Cell::Cell() : _state(DEAD), _neighbours(0) {}
 
 bool Cell::isAlive() { return _state==ALIVE; }
 

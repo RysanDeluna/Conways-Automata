@@ -3,21 +3,21 @@
 //
 #include <iostream>
 #include "classes/Matrix.h"
-#include <random>
 
 void clear() { std::cout << "\x1B[2J\x1B[H"; }
 
 int main()
 {
-  Matrix<Cell> a (10,10,Cell());
-  std::string coisa;
+  Matrix<Cell> Tabuleiro(16,16,Cell());
+  Tabuleiro.generate_life(30);
+  char input;
 
-  a.generate_life(30);
-  std::cout << a;
-  std::cin >> coisa;
+  do {
+    std::cin >> input;
+    system("cls");
+    Tabuleiro.update();
+    std::cout << Tabuleiro;
+  } while(input != 'q');
 
-  a.update();
-
-  std::cout << a;
   return 0;
 }

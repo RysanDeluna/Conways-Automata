@@ -12,6 +12,7 @@ int main()
   Tabuleiro.generate_life(30);
   char input;
 
+  // Loop of inputs
   do {
     std::cin >> input;
     system("cls");

@@ -1,5 +1,6 @@
 //
 // Created by rysan on 21/12/23.
+// Based on the matrix implementation by https://github.com/akalicki/matrix.git
 //
 #pragma once
 #include <vector>

@@ -4,6 +4,11 @@
 #include <iostream>
 #include "classes/Matrix.h"
 
+// TODO: Convert matrix pointers to smart pointers;
+// TODO: Graphical representation using sfml;
+// TODO: Better input controls;
+// TODO: An editor;
+
 void clear() { std::cout << "\x1B[2J\x1B[H"; }
 
 int main()

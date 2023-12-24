@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include "classes/Matrix.h"
+#include <SFML/Graphics.hpp>
 
 // TODO: Convert matrix pointers to smart pointers;
 // TODO: Graphical representation using sfml;
@@ -20,10 +21,15 @@ int main()
   // Loop of inputs
   do {
     std::cin >> input;
-    system("cls");
+    clear();
     Tabuleiro.update();
     std::cout << Tabuleiro;
   } while(input != 'q');
+
+  // LOAD
+  // UPDATE
+  // RENDER
+
 
   return 0;
 }

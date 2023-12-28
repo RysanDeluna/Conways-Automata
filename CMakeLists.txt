@@ -23,17 +23,21 @@ add_library(lib_maths INTERFACE)
 target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths/maths.h")
 target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" INTERFACE ${SFML_INCS})
 
+## ENGINE
+file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
+add_library(lib_engine STATIC ${SOURCE_FILES})
+target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/")
+target_link_libraries(lib_engine lib_maths)
+
 ## EXECUTABLES AND LINKS
 add_executable(LIFE src/main.cpp
         src/classes/cell.cpp
         src/classes/cell.h
         src/classes/Matrix.cpp
         src/classes/Matrix.h
-        engine/engine.cpp
-        engine/engine.h
-        engine/sys_renderer.cpp
-        engine/sys_renderer.h)
-target_link_libraries(LIFE PRIVATE sfml-graphics)
+        src/scenes/scene_simulation.cpp
+        src/scenes/scene_simulation.h)
+target_link_libraries(LIFE PRIVATE sfml-graphics lib_engine)
 target_compile_features(LIFE PRIVATE cxx_std_17)
 
 ## FOR WINDOWS

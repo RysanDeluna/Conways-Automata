@@ -4,7 +4,7 @@
 
 #include "engine.h"
 #include <iostream>
-//#include "system_renderer.h"
+#include "sys_renderer.h"
 
 std::unique_ptr<Scene> Engine::_activeScene = nullptr;
 std::string Engine::_windowName;
@@ -31,7 +31,7 @@ void Engine::Render(sf::RenderWindow &window)
   if (_activeScene != nullptr)
     _activeScene->Render();
 
-  //Renderer::render();
+  Renderer::render();
 } // Render
 
 void Engine::Start(unsigned int width, unsigned int height,
@@ -42,7 +42,7 @@ void Engine::Start(unsigned int width, unsigned int height,
   _windowName = wName;
   _window.reset(&window);
 
-  // Renderer::initialize()
+  Renderer::initialize(window);
 
   // Change for scene...
   ChangeScene(scn);

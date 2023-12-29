@@ -6,7 +6,7 @@
 #include <iostream>
 #include "sys_renderer.h"
 
-std::unique_ptr<Scene> Engine::_activeScene = nullptr;
+std::shared_ptr<Scene> Engine::_activeScene = nullptr;
 std::string Engine::_windowName;
 
 static std::unique_ptr<sf::RenderWindow> _window = std::make_unique<sf::RenderWindow>();
@@ -79,11 +79,13 @@ void Engine::ChangeScene(Scene * s)
 {
   std::cout << "FROM ENGINE:\tChanging Scene:\t" << s << std::endl;
 
-  // Unload whatever assets that scene posses
-  _activeScene->UnLoad();
+  auto old = _activeScene;
 
   // Change the pointer to the new scene and the previous is lost
   _activeScene.reset(s);
+
+  // Unload whatever assets that scene posses
+  if (old != nullptr) old->UnLoad();
   if(!s->isLoaded())
   {
     std::cout << "FROM ENGINE:\tLOADING SCENE..." << std::endl;

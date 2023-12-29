@@ -27,8 +27,8 @@ private:
     mutable bool _loaded;
     mutable std::future<void> _loaded_future;
     mutable std::mutex _loaded_mtx;
-};
 
+};
 
 //  This module covers the application's general functionalities
 //  making sure that the sfml pipeline is done properly
@@ -43,7 +43,7 @@ public:
     static void ChangeScene(Scene*);
 
 private:
-    static std::unique_ptr<Scene> _activeScene;
+    static std::shared_ptr<Scene> _activeScene;
     static std::string _windowName;
     static void Update();
     static void Render(sf::RenderWindow& window);

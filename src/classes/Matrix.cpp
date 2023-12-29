@@ -73,8 +73,7 @@ template <class T> std::vector<T> Matrix<T>::check_surroundings(int i, int j, in
 }
 
 
-// First we update the information for each cell and, only then,
-// allow them to act
+// Represents a time-step on the board
 template<> void Matrix<Cell>::update() {
   short count = 0;
 
@@ -98,7 +97,6 @@ template<> void Matrix<Cell>::generate_life(int prob) {
   std::random_device rd;
   std::mt19937 mt(rd());
   std::uniform_int_distribution<int> dist(0,100);
-
 
   for(auto& row : _matrix)
     for(auto& cell : row)

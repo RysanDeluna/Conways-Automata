@@ -8,7 +8,7 @@ namespace Renderer {
   void initialize(sf::RenderWindow&);
   void shutdown();
   void update(const double&);
-  void queue(std::unique_ptr<sf::Drawable> s);
+  void queue(sf::Drawable* s);
   void render();
 }; // namespace Renderer
 

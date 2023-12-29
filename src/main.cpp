@@ -2,34 +2,16 @@
 // Created by rysan on 21/12/23.
 //
 #include <iostream>
-#include "classes/Matrix.h"
-#include <SFML/Graphics.hpp>
+#include <engine.h>
+#include "scenes/scene_simulation.h"
 
-// TODO: Convert matrix pointers to smart pointers;
-// TODO: Graphical representation using sfml;
-// TODO: Better input controls;
 // TODO: An editor;
 
-void clear() { std::cout << "\x1B[2J\x1B[H"; }
+SceneSimulation test;
+
 
 int main()
 {
-  Matrix<Cell> Tabuleiro(16,16,Cell());
-  Tabuleiro.generate_life(30);
-  char input;
-
-  // Loop of inputs
-  do {
-    std::cin >> input;
-    clear();
-    Tabuleiro.update();
-    std::cout << Tabuleiro;
-  } while(input != 'q');
-
-  // LOAD
-  // UPDATE
-  // RENDER
-
-
+  Engine::Start(1280, 720, "game debug mode", &test);
   return 0;
 }

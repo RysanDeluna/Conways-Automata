@@ -42,7 +42,7 @@ std::vector<graphic_cell_t> logical_to_graphical(const Matrix<Cell>* m)
 
 void SceneSimulation::Load() {
   // First, the matrix is configured
-  M = std::make_shared<Matrix<Cell>>(5,5,Cell());
+  M = std::make_shared<Matrix<Cell>>(64,36,Cell());
   M->generate_life(30);
 
   // Translate it from logical to graphical
@@ -57,7 +57,10 @@ void SceneSimulation::UnLoad() {
   Scene::UnLoad();
 }
 
-// TODO: Fix the graphical update!
+// TODO 1:  |Check if the application can continue without crashing
+// TODO 2:  |Add other commands:
+// TODO 2.1:|N
+// TODO 2.2:|R
 void SceneSimulation::Update(const double &dt) {
   timer += dt;
 
@@ -66,10 +69,9 @@ void SceneSimulation::Update(const double &dt) {
     cell.alive ? cell.shape->setFillColor(sf::Color::White) : cell.shape->setFillColor(sf::Color::Transparent);
 
   // Keyboard Commands
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timer >= 0.5)
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timer >= 0.1)
   {
     M->update();
-    std::cout << *M << std::endl;
     for (auto& cell : list_cells) cell.alive = M->getPoin()[cell.m_pos.x][cell.m_pos.y].isAlive();
     timer = 0;
   }

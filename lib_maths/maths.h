@@ -52,7 +52,6 @@ namespace sf {
       return Vector2<T>(static_cast<T>(v.x), static_cast<T>(v.y));
     };
 
-// TODO: check what this function should actually do
 // Just a casting to avoid errors during Compilation
     template <typename T>
     double degrees(T deg) { return (double)deg; }

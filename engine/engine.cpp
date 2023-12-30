@@ -116,7 +116,6 @@ bool Scene::isLoaded() const
 
 void Scene::UnLoad()
 {
-  // TODO: clear every element in scene
   setLoaded(false);
 }
 

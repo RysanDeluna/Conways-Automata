@@ -8,12 +8,13 @@
 class Cell {
 private:
     enum state { ALIVE,
-                 DEAD };
+        DEAD };
 
     short _neighbours;
     state _state;
     void born();
     void die();
+
 public:
     Cell();
     bool isAlive();

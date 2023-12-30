@@ -10,7 +10,7 @@
 // Information regarding the cells to print them on the screen
 struct graphic_cell_t
 {
-    std::shared_ptr<Cell> cell_ptr;
+    bool alive;
     sf::Vector2f s_pos;
     sf::Vector2ul m_pos;
     std::shared_ptr<sf::Shape> shape;

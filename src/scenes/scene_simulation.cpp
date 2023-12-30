@@ -24,7 +24,7 @@ std::vector<graphic_cell_t> logical_to_graphical(const Matrix<Cell>* m)
       // Constructs the GC
       graphic_cell_t gc;
       gc.m_pos.x = i; gc.m_pos.y = j;
-      gc.cell_ptr = std::make_shared<Cell>(m->getPoin()[i][j]);
+      gc.alive = m->getPoin()[i][j].isAlive();
       // Screen Position configuration
       gc.s_pos.x = tile_dimensions.x * float(gc.m_pos.x); gc.s_pos.y = tile_dimensions.y * float(gc.m_pos.y);
       // Appearance configuration
@@ -42,8 +42,8 @@ std::vector<graphic_cell_t> logical_to_graphical(const Matrix<Cell>* m)
 
 void SceneSimulation::Load() {
   // First, the matrix is configured
-  M = std::make_shared<Matrix<Cell>>(16,16,Cell());
-  M->generate_life(10);
+  M = std::make_shared<Matrix<Cell>>(5,5,Cell());
+  M->generate_life(30);
 
   // Translate it from logical to graphical
   list_cells = logical_to_graphical(M.get());
@@ -63,12 +63,14 @@ void SceneSimulation::Update(const double &dt) {
 
   // Update the cells
   for(auto& cell : list_cells)
-    cell.cell_ptr->isAlive() ? cell.shape->setFillColor(sf::Color::White) : cell.shape->setFillColor(sf::Color::Transparent);
+    cell.alive ? cell.shape->setFillColor(sf::Color::White) : cell.shape->setFillColor(sf::Color::Transparent);
 
   // Keyboard Commands
   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timer >= 0.5)
   {
-    M->update(); std::cout << *M << std::endl;
+    M->update();
+    std::cout << *M << std::endl;
+    for (auto& cell : list_cells) cell.alive = M->getPoin()[cell.m_pos.x][cell.m_pos.y].isAlive();
     timer = 0;
   }
 }

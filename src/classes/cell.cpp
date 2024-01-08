@@ -22,3 +22,9 @@ void Cell::update()
 }
 
 void Cell::inform_neighbours(short neighbours) { _neighbours = neighbours; }
+
+void Cell::alternate()
+{
+  if(_state == ALIVE) die();
+  else born();
+}

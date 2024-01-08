@@ -3,33 +3,28 @@
 //
 
 #include "Matrix.h"
-#include <vector>
 #include <random>
-
-/* ALLOC FUNCTION */
 
 // This creates a new matrix based on the needed space
 template <class T>
 void Matrix<T>::allocSpace()
 {
   // First creates the rows
-  p = new T*[_rows];
+  _matrix.resize(_rows);
   // For each space, creates another vector to represent the columns
-  for(int i = 0; i < _rows; i++)
-    p[i] = new T[_cols];
+  for(auto& c : _matrix)
+    c.resize(_cols);
 }
 
 /* PUBLIC MEMBER FUNCTIONS */
-
-
 // CONSTRUCTORS
 template<class T>
 Matrix<T>::Matrix(int rows, int cols, T e) : _rows(rows), _cols(cols)
 {
   allocSpace();
-  for(int i = 0; i < _rows; i++)
-    for (int j = 0; j < _cols; j++)
-      p[i][j] = e;
+  for (const auto& row : _matrix)
+    for (auto elem : row)
+      elem = e;
 }
 
 template<class T>
@@ -38,17 +33,11 @@ Matrix<T>::Matrix(int rows, int cols, T** a) : _rows(rows), _cols(cols)
   allocSpace();
   for(int i = 0; i < _rows; ++i)
     for(int j = 0; j < cols; ++j)
-      p[i][j] = a[i][j];
+      _matrix[i][j] = a[i][j];
 }
 
 template<class T>
-Matrix<T>::Matrix(const Matrix& m) : _rows(m._rows), _cols(m._cols)
-{
-  allocSpace();
-  for(int i = 0; i < _rows; i++)
-    for(int j = 0; j < _cols; j++)
-      p[i][j] = m.p[i][j];
-}
+Matrix<T>::Matrix(const Matrix& m) : _rows(m._rows), _cols(m._cols), _matrix(m._matrix) {}
 
 template<class T>
 Matrix<T>& Matrix<T>::operator=(const Matrix& m)
@@ -58,81 +47,79 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
   // Destroy the matrix if their shape is different
   if(_rows != m._rows || _cols != m._cols)
   {
-    for (int i = 0; i < _rows; i++) delete[] p[i];
-    delete[] p;
-
-    // Construct a new one exactly the same as the other
+    // Reshape it
     _rows = m._rows;
     _cols = m._cols;
     allocSpace();
   }
 
-  // Populates it with the elements of tbe other matrix
-  for (int i = 0; i < _rows; i++)
-    for (int j = 0; j < _cols; j++)
-      p[i][j] = m.p[i][j];
-
+  // Populates it with the elements of the other matrix
+  _matrix = m._matrix;
   return *this;
 }
 
-// receives the indexes and returns a vector with all the neighbours
+// Receives the indexes and returns a vector with all the neighbours
 template <class T> std::vector<T> Matrix<T>::check_surroundings(int i, int j, int distance)
 {
   std::vector<T> neighbours;
-  int count = 0;
-  // Case it has less than 8 neighbours (borders)
 
   for(int l = i-1; l <= distance + i; l++)
-  {
     for(int y = j-1; y <= distance + j; y++)
-    {
       if(!(l == i && y == j) &&       // Not add the central
           (l >= 0 && l < _rows) &&    // Check if l is within bounds
           (y >= 0 && y < _cols))      // Check if y is within bounds
-        neighbours.push_back(p[l][y]);
-      count++;
-    }
-  }
+        neighbours.push_back(_matrix[l][y]);
   return neighbours;
 }
 
+
+// Represents a time-step on the board
 template<> void Matrix<Cell>::update() {
   short count = 0;
+
+  // Inform each cell how many neighbours are alive
   for (int i = 0; i < getRows(); i++)
-  {
     for (int j = 0; j < getCols(); j++)
     {
       count = 0;
       for (auto c : check_surroundings(i,j,1)) if (c.isAlive()) count++;
-      p[i][j].inform_neighbours(count);
+      _matrix[i][j].inform_neighbours(count);
     }
-  }
 
-  for (int i = 0; i < getRows(); i++)
-    for (int j = 0; j < getCols(); j++)
-      p[i][j].update();
+  // Update each cell at the matrix
+  for(auto& row : _matrix)
+    for(auto& cell : row)
+      cell.update();
 }
-
 
 
 template<> void Matrix<Cell>::generate_life(int prob) {
-  srand(time(NULL));
-  for(int i = 0; i < getRows(); i++)
-    for(int j = 0; j < getCols(); j++)
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  std::uniform_int_distribution<int> dist(0,100);
+
+  for(auto& row : _matrix)
+    for(auto& cell : row)
     {
-      int num = rand() % 100;
-      if(num < prob) p[i][j].force_born();
+      int num = dist(mt);
+      if(num < prob) cell.force_born();
     }
 }
 
+
+template<> void Matrix<Cell>::alternateCell(int i, int j) {
+  _matrix[i][j].alternate();
+}
+
+template<> void Matrix<Cell>::KILL() { for(auto& row : _matrix)for(auto& cell : row) cell.force_die(); }
 
 // For printing and showing the matrix
 std::ostream& operator<<(std::ostream& os, const Matrix<int>& m)
 {
-  for (int i = 0; i < m.getRows(); i++)
+  auto matrix = m.getPoin();
+  for (auto const& row : matrix)
   {
-    os << m.getPoin()[i][0];
-    for (int j = 1; j < m.getCols(); j++) os << " " << m.getPoin()[i][j];
+    for (auto cell : row) os << " " << cell;
     os << std::endl;
   }
   return os;
@@ -140,10 +127,10 @@ std::ostream& operator<<(std::ostream& os, const Matrix<int>& m)
 
 std::ostream& operator<<(std::ostream& os, const Matrix<bool>& m)
 {
-  for (int i = 0; i < m.getRows(); i++)
+  auto matrix = m.getPoin();
+  for (auto const& row : matrix)
   {
-    os << m.getPoin()[i][0];
-    for (int j = 1; j < m.getCols(); j++) os << " " << m.getPoin()[i][j];
+    for (auto cell : row) os << " " << cell;
     os << std::endl;
   }
   return os;
@@ -151,14 +138,13 @@ std::ostream& operator<<(std::ostream& os, const Matrix<bool>& m)
 
 std::ostream& operator<<(std::ostream& os, const Matrix<Cell>& m)
 {
-  for (int i = 0; i < m.getRows(); i++)
+  auto matrix = m.getPoin();
+  for (auto const& row : matrix)
   {
-    // First column
-    m.getPoin()[i][0].isAlive() ? os << "\u2588" : os << "\u253c";
-    for (int j = 1; j < m.getCols(); j++) // Second and so on...
+    for (auto cell : row)
     {
       os << " ";
-      m.getPoin()[i][j].isAlive() ? os << "\u2588" : os << "\u253c";
+      cell.isAlive() ? os << "\u2588" : os << "\u253c";
     }
     os << std::endl;
   }
@@ -166,5 +152,4 @@ std::ostream& operator<<(std::ostream& os, const Matrix<Cell>& m)
 }
 
 template class Matrix<int>;
-template class Matrix<bool>;
 template class Matrix<Cell>;

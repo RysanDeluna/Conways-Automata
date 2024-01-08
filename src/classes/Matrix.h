@@ -40,6 +40,8 @@ public:
 
     std::vector<T> check_surroundings(int,int,int);
     void generate_life(int);
+    void alternateCell(int i, int j);
+    void KILL();
 };
 
 std::ostream& operator<<(std::ostream&, const Matrix<int>&);

@@ -107,6 +107,12 @@ template<> void Matrix<Cell>::generate_life(int prob) {
 }
 
 
+template<> void Matrix<Cell>::alternateCell(int i, int j) {
+  _matrix[i][j].alternate();
+}
+
+template<> void Matrix<Cell>::KILL() { for(auto& row : _matrix)for(auto& cell : row) cell.force_die(); }
+
 // For printing and showing the matrix
 std::ostream& operator<<(std::ostream& os, const Matrix<int>& m)
 {

@@ -19,8 +19,12 @@ public:
     Cell();
     bool isAlive();
     void update();
+
+    // Necessary only for this application!
     void inform_neighbours(short);
     void force_born() { _state = ALIVE; }
+    void force_die() { _state = DEAD; }
+    void alternate();
 };
 
 

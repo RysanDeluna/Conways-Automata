@@ -6,6 +6,7 @@
 #include "sys_renderer.h"
 
 static std::shared_ptr<Matrix<Cell>> M;
+static Matrix<Cell> old_M;
 static double timer;
 
 // Constructs the vector of graphic cells with the information of each one
@@ -45,6 +46,8 @@ void SceneSimulation::Load() {
   M = std::make_shared<Matrix<Cell>>(64,36,Cell());
   M->generate_life(30);
 
+  old_M = *M;
+
   // Translate it from logical to graphical
   list_cells = logical_to_graphical(M.get());
   std::cout << *M << std::endl;
@@ -68,12 +71,25 @@ void SceneSimulation::Update(const double &dt) {
   for(auto& cell : list_cells)
     cell.alive ? cell.shape->setFillColor(sf::Color::White) : cell.shape->setFillColor(sf::Color::Transparent);
 
-  // Keyboard Commands
-  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timer >= 0.1)
+  // Keyboard Commands --------------
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::X) && timer >= 0.1)
   {
+    old_M = *M; // Save the state of M before updating it
     M->update();
     for (auto& cell : list_cells) cell.alive = M->getPoin()[cell.m_pos.x][cell.m_pos.y].isAlive();
     timer = 0;
+  }
+  // Regenerate the board
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+  {
+    UnLoad();
+    Load();
+  }
+  // Go back one time-step
+  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && timer >= 0.1)
+  {
+    *M = old_M;
+    for (auto& cell : list_cells) cell.alive = M->getPoin()[cell.m_pos.x][cell.m_pos.y].isAlive();
   }
 }
 

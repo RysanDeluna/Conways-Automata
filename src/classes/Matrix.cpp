@@ -53,7 +53,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix& m)
     allocSpace();
   }
 
-  // Populates it with the elements of tbe other matrix
+  // Populates it with the elements of the other matrix
   _matrix = m._matrix;
   return *this;
 }

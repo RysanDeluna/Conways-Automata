@@ -1,6 +1,6 @@
 # Conways-Automata
 
-A simple representation of John Horton Conway's Cellular Automata, simply called LIFE.
+A simple representation of John Horton Conway's Cellular Automata, simply called LIFE. The matrix was inspired by [Akalicki's matrix class](https://github.com/akalicki/matrix.git) with some modifications.
 
 ---
 
@@ -28,3 +28,7 @@ This will compile the source code outputting a single executable inside the buil
 | LMB     | Create or Destroy Life |
 
 --- 
+
+#### Note
+
+*The project was developded in a Linux environment on GCC 13.2.1 and CMAKE version 3.28.1 on [ClionIDE](https://www.jetbrains.com/clion/).*

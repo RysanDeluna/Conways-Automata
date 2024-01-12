@@ -59,6 +59,15 @@ Try to find the following stable shapes:
 
 The shapes on item one are stable and do not change if not perturbe, while the shapes on item 2 change each time-step but alternate between a regular set of shapes. On the other hand, shapes on the 3rd item were used to prove that LIFE is a universal computer, and they generate other shapes and can be used in computations within the Universe of LIFE.
 
+## Improvements
+
+The project is far from perfect, it lacks optimization and it's not fully configurable through the interface, so in this section are pointed some improvements that can be done to the project and you are free to try it out:
+
+- Optimization: by the fact that a matrix is used, most of the algorithms run in $O(n^2)$ complexity which can easily affect the runtime required each time-step. A solution would be using another data structure that could mimic a matrix's behaviour while also adding concurrent processing on the operations.
+- Human-Computer Interaction: create a better user-interface with instructions and editable environment fully contained in itself.
+
+This is a free-time project developed in 1 week during my coffee breaks, so there is space for a lot of improvements which can be achieved fairly easy by changing and incrementing the code. With that being said, for anyone with lots of spare time and passion for this crazy stuff, you are invited to modify and use this software for whatever you want. 
+
 #### Note
 
 *The project was developded in a Linux environment on GCC 13.2.1 and CMAKE version 3.28.1 on [ClionIDE](https://www.jetbrains.com/clion/).*

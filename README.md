@@ -64,5 +64,4 @@ The shapes on item one are stable and do not change if not perturbe, while the s
 *The project was developded in a Linux environment on GCC 13.2.1 and CMAKE version 3.28.1 on [ClionIDE](https://www.jetbrains.com/clion/).*
 
 The inspiration for working on this project came by reading:
-
-*Steven Levy. 1993. Artificial life: A report from the frontier where computers meet biology. Random House Inc. *
+*Steven Levy. 1993. Artificial life: A report from the frontier where computers meet biology. Random House Inc.*

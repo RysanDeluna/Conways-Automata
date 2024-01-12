@@ -45,7 +45,7 @@ Under these considerations, eventually was develped a set of rules that would re
 
 ### The Code
 
-With these rules in mind, the approach for creating the code resolved around implementing these rules in a graphical interface which could be used to understand and experiment the behaviour of it's cells organized in a grid. Which, trivially was implemented as a matrix which would store the information for each cell; which could be alive or dead.
+With the rules set, the approach for creating the code resolved around implementing those in a graphical interface which could be used to understand and experiment the behaviour of it's cells organized in a grid. Trivially, it was implemented as a matrix whose elements store the information for each cell; that being alive or dead.
 
 ### Quests
 

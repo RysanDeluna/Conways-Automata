@@ -26,6 +26,7 @@ This will compile the source code outputting a single executable inside the buil
 | Z       | Previous State |
 | N       | New Board |
 | LMB     | Create or Destroy Life |
+| 0       | Create an Empty Board |
 
 --- 
 

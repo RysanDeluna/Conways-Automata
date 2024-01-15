@@ -15,6 +15,7 @@ cmake ../
 ```
 
 This will compile the source code outputting a single executable inside the build folder called LIFE.
+The Cmake should work on the same manner on a Windows machine. 
 
 ---
 

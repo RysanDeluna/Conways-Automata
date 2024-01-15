@@ -8,7 +8,7 @@ A simple representation of John Horton Conway's Cellular Automata, simply called
 
 In order to run the program, there is a CMakeList file to build and make the executable. Be sure to have [Cmake](https://cmake.org/download/) installed and to create the folder where the build will be generated.
 
-On Linux:
+For example, on Linux:
 ```sh
 mkdir cmake-build && cd cmake-build
 cmake ../

@@ -26,5 +26,3 @@ public:
     void force_die() { _state = DEAD; }
     void alternate();
 };
-
-

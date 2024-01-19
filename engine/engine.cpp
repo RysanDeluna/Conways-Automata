@@ -102,14 +102,15 @@ sf::RenderWindow& Engine::GetWindow() { return *_window; }
 bool Scene::isLoaded() const
 {
   {
-    {
-      std::lock_guard<std::mutex> lck(_loaded_mtx);
-      if (_loaded_future.valid() && _loaded_future.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-      {
-        _loaded_future.get();
-        _loaded = true;
-      }
-    }
+    // TODO: Fix windows version with future/mutex
+    //{
+    //  //std::lock_guard<std::mutex> lck(_loaded_mtx);
+    //  if (_loaded_future.valid() && _loaded_future.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+    //  {
+    //    _loaded_future.get();
+    //    _loaded = true;
+    //  }
+    //}
     return _loaded;
   }
 }

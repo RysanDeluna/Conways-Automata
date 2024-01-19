@@ -56,7 +56,7 @@ sf::Vector2u cellcoord(sf::Vector2i pos)
 
 void SceneSimulation::Load() {
   // First, the matrix is configured
-  M = std::make_shared<Matrix<Cell>>(96,54,Cell());
+  M = std::make_shared<Matrix<Cell>>(32,18,Cell());
   M->generate_life(30);
 
   old_M = *M;

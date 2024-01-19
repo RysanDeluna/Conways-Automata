@@ -25,9 +25,8 @@ protected:
 
 private:
     mutable bool _loaded;
-    mutable std::future<void> _loaded_future;
-    mutable std::mutex _loaded_mtx;
-
+    //mutable std::future<void> _loaded_future;
+    //mutable std::mutex _loaded_mtx;
 };
 
 //  This module covers the application's general functionalities
